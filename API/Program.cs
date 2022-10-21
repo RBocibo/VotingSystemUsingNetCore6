@@ -57,7 +57,7 @@ if (app.Environment.IsDevelopment())
     {
         config.EnableFilter();
         config.DocExpansion(DocExpansion.None);
-
+        
         config.SwaggerEndpoint("/swagger/v1/swagger.json", "Voting API v1");
         config.SwaggerEndpoint("/swagger/v2/swagger.json", "Voting API v2");
     });
