@@ -1,9 +1,28 @@
+using API.Extensions.AutoMapperExtension;
+using API.Extensions.RepositoryExtensions;
+using API.Extensions.ServicesExtensions;
+using Core.UnitOfWorkInterface;
+using Infrastructure.DabaseContext;
+using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Registering DB Context
+builder.Services.AddDbContext<VotingSystemDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VotingConnectionStr"));
+});
+
+//Registering extensions
+builder.Services.AutoMapperConfig();
+builder.Services.RepositoryConfiguration();
+builder.Services.ServicesConfig();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 // Add services to the container.
 
